@@ -1,20 +1,24 @@
-#1. Terraform block-
+# 1. Terraform Block
 terraform {
   required_providers {
-      aws= {
-         source= "hashicorp/aws"
-         version= "~>6.0"
-        }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
+  }
 }
 
-#2.Provider Configuration
+# 2. Provider Configuration
 provider "aws" {
- region= "ap-south-1"
+  region = var.aws_region
 }
 
-#3.Resource Configuration-
+# 3. Resource Configuration
 resource "aws_s3_bucket" "product_assets" {
-    bucket= "ecommerece-dev-product-assets-nitisha"
-}
+  bucket = "${var.project_name}-${var.environment}-product-assets-nitisha-02"
 
+  tags = {
+    Environment = var.environment
+    Purpose     = "product-assets"
+  }
+}
